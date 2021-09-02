@@ -9,6 +9,8 @@
 
 import argparse
 from rich.console import Console
+import re
+from module.whois import whois
 
 console = Console()
 
@@ -21,11 +23,21 @@ def main():
 
     # 接受参数并解析
     args = parser.parse_args()
-    if args.target:
-        console.print("The target is: %s" % args.target)
+    target = args.target
+    if target:
+        console.print("The target is: %s" % target)
     else:
         console.print("Not giving a specific goal!")
         return
+
+    # 判断target是域名/IP
+    if not re.findall(
+            "^(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|["
+            "1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)$",
+            target):
+        # whois收集
+        whois(target)
+
 
 
 if __name__ == '__main__':
@@ -33,4 +45,3 @@ if __name__ == '__main__':
     main()
 else:
     console.print("987")
-

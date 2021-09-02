@@ -1,0 +1,12 @@
+title = ""
+
+
+[api]
+
+
+[whois]
+# whois
+# whoisxmlapi.com api
+# 免费账户支持每月500域名查询
+# 具体价格：https://whois.whoisxmlapi.com/pricing
+whoisxmlapi = "at_574rqoBTB15i0L8F5zhzznPEUUIxf"
