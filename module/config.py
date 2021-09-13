@@ -4,20 +4,22 @@
 
 """
 import os
+from pathlib import Path
+
 import toml
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = Path.cwd().parent
+TOML_FILE_PATH = BASE_DIR / 'result'
 
 try:
-    toml_file_path = os.path.join(BASE_DIR, "../config.toml")
-
-
     def config(node="", key=""):
-        return toml.load(toml_file_path)[node][key]
-
+        return toml.load(TOML_FILE_PATH)[node][key]
 except OSError as e:
+    # TODO LOG ERROR
     print("OS Error: {0}".format(e))
 except ValueError as e:
+    # TODO LOG ERROR
     print("Value Err: {0}".format(e))
 except Exception as e:
+    # TODO LOG ERROR
     print("Unexpected Error: {0}".format(e))
