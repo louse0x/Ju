@@ -5,6 +5,7 @@
     :return
 """
 import json
+import threading
 from pathlib import Path
 from datetime import datetime
 
@@ -29,18 +30,35 @@ TIME_FORMAT = datetime.strftime(datetime.today(), "%Y%m%d_%H%M%S")
 data_dict = dict()
 
 
+class MyThread(threading.Thread):
+
+    def __init__(self, func, args=()):
+        super(MyThread, self).__init__()
+        self.func = func
+        self.args = args
+
+    def run(self):
+        self.result = self.func(*self.args)
+
+    def get_result(self):
+        try:
+            return self.result  # 如果子线程不使用join方法，此处可能会报没有self.result的错误
+        except Exception:
+            return None
+
+
 def task(domain):
     global data_dict
-    # geo数据 -> geoip.py
-    data_dict['geo'] = geoip(domain)
-    # 备案数据 -> beian.py
-    data_dict['beian'] = beian(domain)
-    # 公安备案数据 -> ga.py
-    data_dict['ga'] = ga(domain)
-    # whois数据 -> whois.py
-    data_dict['whois'] = whois(domain)
-    # whatweb数据 -> whatweb.py
-    data_dict['whatweb'] = whatweb(domain)
+    keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb']
+    li = []
+    # 数据填充
+    for keyword in keyword_list:
+        t = MyThread(eval(keyword), args=(domain,))
+        li.append(t)
+        t.start()
+    for i, t in enumerate(li):
+        t.join()
+        data_dict[keyword_list[i]] = t.get_result()
 
     return
 

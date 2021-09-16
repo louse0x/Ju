@@ -8,6 +8,8 @@
 """
 
 import argparse, os
+from urllib.request import urlopen
+
 from rich.console import Console
 import re
 from module.whois import whois
@@ -39,21 +41,14 @@ def main():
                 os.remove(entry)
         return
 
-    # 目标解析
-    target = args.target
-    if target:
-        console.print("The target is: %s" % target)
+    # 联通性测试
+    http_code = urlopen('https://www.google.com.hk/').getcode()
+    if http_code == '200' or http_code == '201':
+        # TODO:: DO DISPATCHER
+        pass
     else:
-        console.print("Not giving a specific goal!")
-        return
-
-    # 判断target是域名/IP
-    if not re.findall(
-            "^(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|["
-            "1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)$",
-            target):
-        # whois收集
-        whois(target)
+        # TODO:: PASS
+        pass
 
 
 if __name__ == '__main__':
