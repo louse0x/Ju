@@ -22,11 +22,10 @@ def ga(domain):
         key_list = ['website_name', 'domain', 'subject', 'category', 'organizer', 'ga_id', 'ga_location', 'ga_date']
         # 填充数据返回
         return dict(zip(key_list, ga_list))
-
     except AttributeError:
         # 无公安网备
         return '暂无公安网备'
     except Exception as e:
-        # TODO LOG ERROR
+        # TODO:: LOG ERROR
         print(e)
         return -1

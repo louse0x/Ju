@@ -11,6 +11,7 @@ from datetime import datetime
 from module.beian import beian
 from module.ga import ga
 from module.geoip import geoip
+from module.whatweb import whatweb
 from module.whois import whois
 
 BASE_DIR = Path.cwd().parent
@@ -38,9 +39,11 @@ def task(domain):
     data_dict['ga'] = ga(domain)
     # whois数据 -> whois.py
     data_dict['whois'] = whois(domain)
+    # whatweb数据 -> whatweb.py
+    data_dict['whatweb'] = whatweb(domain)
 
     return
 
 
 task('tjhzyl.com')
-print(json.dumps(data_dict,ensure_ascii=False))
+print(json.dumps(data_dict, ensure_ascii=False))
