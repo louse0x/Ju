@@ -13,9 +13,9 @@ def ga(domain):
     :param domain:
     :return:
     """
-    res = urlopen("https://api88.net/api/wa/?name=" + domain).read().decode('utf-8')
-    soup = BeautifulSoup(res, 'html.parser')
     try:
+        res = urlopen("https://api88.net/api/wa/?name=" + domain).read().decode('utf-8')
+        soup = BeautifulSoup(res, 'html.parser')
         tbody = soup.table.find_all('td')
         ga_list = [child.get_text() for child in tbody][1::2]
         ga_list[-3] = ga_list[-3][:-6]

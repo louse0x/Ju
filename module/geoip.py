@@ -4,7 +4,6 @@
 :desc: 返回服务器IP地址Geo
 """
 import json
-import time
 from urllib.request import urlopen
 from module.config import config
 

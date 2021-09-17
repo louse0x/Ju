@@ -15,8 +15,9 @@ def whois(domain):
     :param domain:
     :return:
     """
-    data = dict()
+
     try:
+        data = dict()
         # whois_1
         res = urlopen(
             'https://www.whoisxmlapi.com/whoisserver/WhoisService?outputFormat=json&apiKey={0}&domainName={1}'.format(

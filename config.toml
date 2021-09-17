@@ -3,6 +3,12 @@ title = ""
 
 [api]
 
+[market]
+# market api
+# Pricing: https://promptapi.com/account
+promptapi = "BZGEIOrmVkrDBZH9AdTyHE1yKeQnJ0DE"
+
+
 
 [whois]
 # whoisxmlapi.com api
@@ -14,3 +20,5 @@ whoisxmlapi = "at_574rqoBTB15i0L8F5zhzznPEUUIxf"
 # https://www.wappalyzer.com/api/
 # Pricing: https://www.wappalyzer.com/pricing/
 wappalyzer = "zZgxg94x2244NiDrRvG9U8rVVduSmmqu5V0lZT8A"
+
+

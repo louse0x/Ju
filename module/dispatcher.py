@@ -6,14 +6,15 @@
 """
 import json
 import threading
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 from module.beian import beian
 from module.ga import ga
 from module.geoip import geoip
 from module.whatweb import whatweb
 from module.whois import whois
+from module.dns import dns
 
 BASE_DIR = Path.cwd().parent
 RESULT_DIR_PATH = BASE_DIR / 'result'
@@ -49,7 +50,7 @@ class MyThread(threading.Thread):
 
 def task(domain):
     global data_dict
-    keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb']
+    keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb', 'dns']
     li = []
     # 数据填充
     for keyword in keyword_list:
