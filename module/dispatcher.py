@@ -15,6 +15,7 @@ from module.geoip import geoip
 from module.whatweb import whatweb
 from module.whois import whois
 from module.dns import dns
+from module.subdomain import subdomain
 
 BASE_DIR = Path.cwd().parent
 RESULT_DIR_PATH = BASE_DIR / 'result'
@@ -50,7 +51,7 @@ class MyThread(threading.Thread):
 
 def task(domain):
     global data_dict
-    keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb', 'dns']
+    keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb', 'dns', 'subdomain']
     li = []
     # 数据填充
     for keyword in keyword_list:

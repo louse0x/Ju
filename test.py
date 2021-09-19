@@ -1,15 +1,5 @@
-import requests
+import runpy
 
-url = "https://api.promptapi.com/dns_lookup/api/any/tjhzyl.com"
+a = runpy.run_module('wafw00f')
 
-payload = {}
-headers= {
-  "apikey": "BZGEIOrmVkrDBZH9AdTyHE1yKeQnJ0DE"
-}
-
-response = requests.request("GET", url, headers=headers, data = payload)
-
-status_code = response.status_code
-result = response
-
-print(result)
+print(a)
