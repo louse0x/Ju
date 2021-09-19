@@ -10,7 +10,7 @@ from urllib.request import urlopen
 def subdomain(domain):
     """
     :desc: sub_1: https://myssl.com/api/v1/discover_sub_domain?domain={domain}
-    :param domian:
+    :param domain:
     :return:
     """
     try:

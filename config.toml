@@ -22,3 +22,9 @@ whoisxmlapi = "at_574rqoBTB15i0L8F5zhzznPEUUIxf"
 wappalyzer = "zZgxg94x2244NiDrRvG9U8rVVduSmmqu5V0lZT8A"
 
 
+[nmap]
+
+
+# Nmap File Path
+
+path = "C:/Program Files (x86)/Nmap/nmap.exe"
