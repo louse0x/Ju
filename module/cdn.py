@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-:desc: CDN识别
+:desc: cdn
 """
 import json
 from urllib import request

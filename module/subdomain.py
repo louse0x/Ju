@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-:desc: 子域名挖掘
+:desc: subdomain
 """
 import json
 from urllib.request import urlopen

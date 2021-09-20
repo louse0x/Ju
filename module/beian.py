@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-:desc: 返回域名备案主体
+:desc: beian
 """
 import json
 from urllib.request import urlopen

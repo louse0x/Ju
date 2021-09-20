@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-
+:desc: whois
 """
 import json
 from urllib.request import urlopen
-from config import config
+
+from module.config import config
 
 
 def whois(domain):

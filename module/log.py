@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-
+:desc: log
+#TODO
 """
-import os
 import logging
+import os
 import time
-from time import ctime
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 try:
-
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     log_dir_path = os.path.join(BASE_DIR, "../log/")
 
 
@@ -30,14 +28,10 @@ try:
 
         logging.basicConfig(level=logging.ERROR, format=LOG_FORMAT, datefmt=DATE_FORMAT,
                             filename=r'_'.join(
-                                ['l',log_dir_path, target_name, time.strftime("%Y-%m-%d %H-%M-%S", time.localtime()),
+                                ['l', log_dir_path, target_name, time.strftime("%Y-%m-%d %H-%M-%S", time.localtime()),
                                  '.log']))
 
         return logging.error(error_msg)
-
-
-
-
 
 except Exception as e:
     print("Unexpected Error: {0}".format(e))

@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-:desc: 返回中间件识别
+:desc: whatweb
 """
 import json
 from urllib import request
 from urllib.parse import urlencode
 
-from config import config
+from module.config import config
+from module.header import header
 
 
 def whatweb(domain):
@@ -24,7 +25,7 @@ def whatweb(domain):
         req = request.Request(
             'https://api.wappalyzer.com/lookup/v2/?urls=http://{0}'.format(domain, domain),
             headers={'x-api-key': config(node='whatweb', key='wappalyzer'),
-                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36 Edg/93.0.961.44'})
+                     'User-Agent': header()})
         res = request.urlopen(req).read().decode('utf-8')
         data['whatweb_1'] = json.loads(res)
         # whatweb_2

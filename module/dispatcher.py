@@ -1,18 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-""":description :调度文件 调用所有其他Py文件皆以返回值的形式 在此文件进行处理
-    :return
+"""
+:desc: dispatcher
 """
 import json
 import threading
 from datetime import datetime
 from pathlib import Path
 
+from waf import waf
+
 BASE_DIR = Path.cwd().parent
 RESULT_DIR_PATH = BASE_DIR / 'result'
 LOG_DIR_PATH = BASE_DIR / 'log'
-# log&result判断填充
+# log & result判断填充
 if not RESULT_DIR_PATH.exists():
     RESULT_DIR_PATH.mkdir()
 if not LOG_DIR_PATH.exists():
@@ -20,8 +21,6 @@ if not LOG_DIR_PATH.exists():
 
 # 格式化时间字符串
 TIME_FORMAT = datetime.strftime(datetime.today(), "%Y%m%d_%H%M%S")
-
-data_dict = dict()
 
 
 class MyThread(threading.Thread):
@@ -42,8 +41,8 @@ class MyThread(threading.Thread):
 
 
 def task(domain):
-    global data_dict
-    keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb', 'dns', 'subdomain', 'cdn']
+    keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb', 'dns', 'subdomain', 'cdn', 'waf']
+    data = dict()
     li = []
     # 数据填充
     for keyword in keyword_list:
@@ -52,10 +51,9 @@ def task(domain):
         t.start()
     for i, t in enumerate(li):
         t.join()
-        data_dict[keyword_list[i]] = t.get_result()
+        data[keyword_list[i]] = t.get_result()
 
-    return
+    return data
 
 
-task('tjhzyl.com')
-print(json.dumps(data_dict, ensure_ascii=False))
+print(json.dumps(task('tjhzyl.com'), ensure_ascii=False))

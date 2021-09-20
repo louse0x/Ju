@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-:desc: 返回DNS记录
+:desc: dns
 """
 import json
 import traceback
 from urllib import request
 
+from module.header import header
 from module.config import config
 
 
@@ -26,11 +27,11 @@ def dns(domain):
                 config(node='whois',
                        key='whoisxmlapi'), domain), timeout=30).read().decode('utf-8')
         data['dns_1'] = json.loads(res)
+
         # dns_2
-        # TODO:: RANDOM HEADERS
         req = request.Request('https://api.promptapi.com/dns_lookup/api/any/{0}'.format(domain),
                               headers={"apikey": config(node='market', key='promptapi'),
-                                       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36 Edg/93.0.961.44'},
+                                       'User-Agent': header()},
                               method='GET')
         res_ = request.urlopen(req).read().decode('utf-8')
         data['dns_2'] = json.loads(res_)

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-:desc: 返回nmap扫描
+:desc: nmap
+#TODO
 """
 import nmap3
 
@@ -19,7 +20,11 @@ def _nmap(ip):
         nmap = nmap3.Nmap(path=config(node='nmap', key='path'))
         print(config(node='nmap', key='path'))
         if nmap.nmap_version():
-            data['version_detection'] = nmap.nmap_version_detection(ip)
+            # Linux may be need root
+            data['ports'] = nmap.scan_top_ports(ip)
+            data['dns'] = nmap.nmap_dns_brute_script(ip)
+            data['os'] = nmap.nmap_os_detection(ip)
+            data['sub'] = nmap.nmap_subnet_scan(ip)
         else:
             return data
     except Exception as e:

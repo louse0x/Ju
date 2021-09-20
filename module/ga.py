@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-:desc: 返回域名公安网备信息
+:desc: ga record
 """
 from urllib.request import urlopen
+
 from bs4 import BeautifulSoup
 
 

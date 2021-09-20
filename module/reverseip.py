@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-:desc: 反向ip查询
+:desc: TODO
 """
 from urllib.request import urlopen
+
 reverseip_dict = dict()
+
+
 def reverseip(ip):
     """
     :desc: https://api.hackertarget.com/reverseiplookup/?q=2.2.2.2

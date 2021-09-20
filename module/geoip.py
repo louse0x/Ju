@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-:desc: 返回服务器IP地址Geo
+:desc: geoip
 """
 import json
 from urllib.request import urlopen
+
 from module.config import config
 
 

@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+"""
+:desc: config
+"""
 from pathlib import Path
+
 import toml
 
 BASE_DIR = Path.cwd().parent
