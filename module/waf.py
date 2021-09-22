@@ -6,6 +6,7 @@
 
 import re
 import subprocess
+from sys import executable
 
 import wafw00f
 
@@ -18,7 +19,7 @@ def waf(domain):
     """
     try:
         res, val = subprocess.getstatusoutput(
-            "python {0}/main.py {1} --findall".format(wafw00f.__path__[0], domain))
+            "{0} {1}/main.py {2} --findall".format(executable, wafw00f.__path__[0], domain))
         if res == 0:
             # 执行正常
             pattern = "The site (.*) is behind (.*)"
@@ -29,11 +30,9 @@ def waf(domain):
                 # 无waf
                 return "no waf"
         else:
+            # TODO:: LOG ERROR
             return None
     except Exception as e:
         # TODO:: LOG ERROR
         print(e)
         return -1
-
-
-
