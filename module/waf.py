@@ -31,7 +31,7 @@ def waf(domain):
                 return "no waf"
         else:
             # TODO:: LOG ERROR
-            return None
+            return "waf Error"
     except Exception as e:
         # TODO:: LOG ERROR
         print(e)
