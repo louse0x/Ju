@@ -6,6 +6,7 @@
 import json
 from urllib import request
 from urllib.parse import quote
+from tldextract import tldextract
 
 from module.header import header
 
@@ -13,10 +14,12 @@ from module.header import header
 def whoisreverse(domain):
     """
     :desc: http://whois.4.cn/api/whoisreverse-domain?domain={domain}
-
     :param domain:
     :return:
     """
+    # get root domain
+    ext = tldextract.extract(domain)
+    domain = ext.domain + '.' + ext.suffix
 
     try:
         data = dict()

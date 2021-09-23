@@ -19,6 +19,7 @@ from subdomain import subdomain
 from cdn import cdn
 from waf import waf
 from whoisreverse import whoisreverse
+from jssl import jssl
 
 BASE_DIR = Path.cwd().parent
 RESULT_DIR_PATH, LOG_DIR_PATH, TEMP_DIR_PATH, = BASE_DIR / 'result', BASE_DIR / 'log', BASE_DIR / 'temp'
@@ -53,7 +54,8 @@ class MyThread(threading.Thread):
 
 
 def task(domain):
-    keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb', 'dns', 'subdomain', 'cdn', 'waf']
+    keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb', 'dns', 'subdomain', 'cdn', 'waf', 'jssl',
+                    'whoisreverse']
     data = defaultdict(keyword_list)
     li = []
     # 数据填充

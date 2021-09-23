@@ -19,28 +19,24 @@ def _dirsearch(domain):
     :return:
     """
     try:
-        # res, val = subprocess.getstatusoutput(
-        #     "{0} {1}/dirsearch.py -u {2} --recursion-depth 3 --recursion-status 200-399 --exclude-texts='Not found','Error' --no-color --user-agent={3} --retries=1 --format=json --quiet-mode -e php,htm,js,bak,zip,tgz,txt -t 20 --max-rate 100".format(
-        #         executable, dirsearch.__path__[0], domain, header()))
-        #
-        # if res == 0:
-        #     # 执行正常
-        #     print(val)
-
-        #         out_bytes = subprocess.check_output("{0} {1}/dirsearch.py -u {2} --recursion-depth 3 --recursion-status 200-399 --exclude-texts='Not found','Error' --no-color --user-agent={3} --retries=1 --format=json --quiet-mode -e php,htm,js,bak,zip,tgz,txt -t 20 --max-rate 100".format(
-        # executable, dirsearch.__path__[0], domain, header(),shell=True,timeout=60)
         proc = subprocess.Popen(
-            "{0} {1}/dirsearch.py -u {2} --recursion-status 200-399 --exclude-status=400-599 --no-color --user-agent={3} --quiet-mode -e php,htm,js,bak,zip,tgz,txt -t 2 --format=json".format(
+            "{0} {1}/dirsearch.py -u {2} --recursion-status 200-399 --no-color --user-agent={3} --quiet-mode -e php,htm,js,bak,zip,tgz,txt -t 2 --format=json".format(
                 executable, dirsearch.__path__[0], domain, header()), shell=True, stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT)
+            stderr=subprocess.PIPE)
+        # proc = subprocess.Popen(
+        #     "ping www.baidu.com".format(
+        #         executable, dirsearch.__path__[0], domain, header()), shell=True, stdout=subprocess.PIPE,
+        #     stderr=subprocess.PIPE)
         # 防止使用wait()死锁
-        (output, errout) = proc.communicate()
+        # output, errout = proc.communicate()
+        # print(output,errout)
+        proc.wait()
         if proc.returncode == 0:
             # 执行正常
             # 读文件
-            return output
+            return proc
         else:
-            return errout
+            return proc
     except subprocess.CalledProcessError as e:
         # TODO:: LOG ERROR
         return str([e.returncode, e.output.decode('utf-8')])
