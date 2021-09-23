@@ -12,8 +12,10 @@ import sys
 from urllib.request import urlopen
 
 from rich.console import Console
-import re
-from module.whois import whois
+
+import  module.dispatcher
+
+
 
 console = Console()
 
@@ -56,9 +58,9 @@ def main():
 
 
 if __name__ == '__main__':
-    if sys.hexversion < '':
-        # TODO
-        sys.stderr.write('\r\n')
+    if sys.hexversion < '0x30700f0':
+        # TODO:: VERSION
+        sys.stderr.write('当前使用的版本过低!\r\n')
 
     console.print('Hello', 'Ju!', style="bold blue")
     main()

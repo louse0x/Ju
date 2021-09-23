@@ -7,6 +7,7 @@ import json
 import threading
 from datetime import datetime
 from pathlib import Path
+from collections import defaultdict
 
 from geoip import geoip
 from beian import beian
@@ -20,16 +21,18 @@ from waf import waf
 from whoisreverse import whoisreverse
 
 BASE_DIR = Path.cwd().parent
-RESULT_DIR_PATH = BASE_DIR / 'result'
-LOG_DIR_PATH = BASE_DIR / 'log'
-# log & result判断填充
+RESULT_DIR_PATH, LOG_DIR_PATH, TEMP_DIR_PATH, = BASE_DIR / 'result', BASE_DIR / 'log', BASE_DIR / 'temp'
+
+# sub dir
 if not RESULT_DIR_PATH.exists():
     RESULT_DIR_PATH.mkdir()
 if not LOG_DIR_PATH.exists():
     LOG_DIR_PATH.mkdir()
+if not TEMP_DIR_PATH.exists():
+    TEMP_DIR_PATH.mkdir()
 
 # 格式化时间字符串
-TIME_FORMAT = datetime.strftime(datetime.today(), "%Y%m%d_%H%M%S")
+TIME_FORMAT = datetime.strftime(datetime.today(), "%Y-%m-%d_%H-%M-%S")
 
 
 class MyThread(threading.Thread):
@@ -51,7 +54,7 @@ class MyThread(threading.Thread):
 
 def task(domain):
     keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb', 'dns', 'subdomain', 'cdn', 'waf']
-    data = dict()
+    data = defaultdict(keyword_list)
     li = []
     # 数据填充
     for keyword in keyword_list:
@@ -65,4 +68,17 @@ def task(domain):
     return data
 
 
-print(json.dumps(task('tjhzyl.com'), ensure_ascii=False))
+def raw(domain, data):
+    # raw file
+    try:
+        with open(str(RESULT_DIR_PATH) + '/' + domain + '_' + TIME_FORMAT + '.json', 'w+') as f:
+            f.write(json.dumps(data))
+        return 0
+    except Exception as e:
+        # TODO:: LOG ERROR
+        print(e)
+        return -1
+
+
+raw('aaa.test.com', {'name': 'runoob', 'likes': 123, 'url': 'www.runoob.com'})
+# print(json.dumps(task('tjhzyl.com'), ensure_ascii=False))
