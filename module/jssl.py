@@ -12,6 +12,11 @@ from bs4 import BeautifulSoup
 
 
 def jssl(domain):
+    """
+    :desc: jssl_1: https://crt.sh/?q={domain}
+    :param domain:
+    :return:
+    """
     # get root domain
     ext = tldextract.extract(domain)
     domain = ext.domain + '.' + ext.suffix
@@ -23,7 +28,7 @@ def jssl(domain):
         res = request.urlopen(req).read().decode('utf-8')
         soup = BeautifulSoup(res, 'lxml')
         td_list = [x for x in soup.find_all(text=re.compile(domain)) if ' ' not in x]
-        data['jssl_1'] = set(td_list)
+        data['jssl_1'] = list(set(td_list))
         return data
 
     except Exception as e:
@@ -31,6 +36,3 @@ def jssl(domain):
         print(e)
         return -1
         pass
-
-
-print(jssl('www.tjhzyl.com'))

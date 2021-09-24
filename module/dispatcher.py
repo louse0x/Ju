@@ -7,7 +7,6 @@ import json
 import threading
 from datetime import datetime
 from pathlib import Path
-from collections import defaultdict
 
 from geoip import geoip
 from beian import beian
@@ -20,6 +19,7 @@ from cdn import cdn
 from waf import waf
 from whoisreverse import whoisreverse
 from jssl import jssl
+from jnmap import jnmap
 
 BASE_DIR = Path.cwd().parent
 RESULT_DIR_PATH, LOG_DIR_PATH, TEMP_DIR_PATH, = BASE_DIR / 'result', BASE_DIR / 'log', BASE_DIR / 'temp'
@@ -55,8 +55,8 @@ class MyThread(threading.Thread):
 
 def task(domain):
     keyword_list = ['geoip', 'beian', 'ga', 'whois', 'whatweb', 'dns', 'subdomain', 'cdn', 'waf', 'jssl',
-                    'whoisreverse']
-    data = defaultdict(keyword_list)
+                    'whoisreverse', 'jnmap']
+    data = dict()
     li = []
     # 数据填充
     for keyword in keyword_list:
@@ -81,6 +81,13 @@ def raw(domain, data):
         print(e)
         return -1
 
+# 调度
+task_data = task('tjhzyl.com')
+print(task_data)
+if raw('tjhzyl.com',task_data) == 0:
+    # 正常
+    pass
+else:
+    # 异常
+    pass
 
-raw('aaa.test.com', {'name': 'runoob', 'likes': 123, 'url': 'www.runoob.com'})
-# print(json.dumps(task('tjhzyl.com'), ensure_ascii=False))

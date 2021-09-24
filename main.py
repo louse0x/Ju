@@ -13,7 +13,8 @@ from urllib.request import urlopen
 
 from rich.console import Console
 
-import  module.dispatcher
+import __version__
+import module.dispatcher
 
 
 

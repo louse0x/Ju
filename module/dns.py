@@ -36,16 +36,8 @@ def dns(domain):
                                method='GET')
         res_ = request.urlopen(req_).read().decode('utf-8')
         data['dns_2'] = json.loads(res_)
-        # dns_3
-        # TODO:: CHANGE
-        # req__ = request.Request(
-        #     'http://dns.bufferover.run/dns?q={0}'.format(domain), headers={'User-Agent': header()})
-        # res__ = request.urlopen(req__).read().decode('utf-8')
-        #
-        # data['dns_3'] = json.loads(res__)
         return data
     except Exception as e:
         traceback.print_exc()
         print(e)
         return -1
-    return
