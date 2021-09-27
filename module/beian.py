@@ -4,7 +4,11 @@
 :desc: beian
 """
 import json
-from urllib.request import urlopen
+import traceback
+import urllib.error
+from urllib import request
+
+from module.header import header
 
 
 def beian(domain):
@@ -13,13 +17,16 @@ def beian(domain):
     :param domain:
     :return:
     """
-    res = urlopen("https://tapi.66sj.cn/api/url_icp?url={0}".format(domain)).read().decode('utf-8')
-    res = json.loads(res)
     try:
+        req = request.Request("https://tapi.66sj.cn/api/url_icp?url={0}".format(domain),
+                              headers={'User-Agent': header()})
+        res = json.loads(request.urlopen(req).read().decode('utf-8'))
+
         return res['data']
     except TypeError:
-        return '暂无域名备案'
+        return 'Beian Response TypeError'
+    except urllib.error.HTTPError:
+        return 'Beian HTTPError'
     except Exception as e:
-        # TODO:: LOG ERROR
-        print(e)
-        return -1
+        traceback.print_exc()
+        return {}

@@ -3,30 +3,32 @@
 """
 :desc: nmap
 """
+import traceback
+
 import nmap3
 
 from module.config import config
 
 
-def jnmap(ip):
+def jnmap(domain):
     """
     :desc: https://pypi.org/project/python3-nmap/
-    :param ip:
+    :param domain:
     :return:
     """
     try:
-        data = dict()
+        data = {}
         nmap = nmap3.Nmap(path=config(node='nmap', key='path'))
         if nmap.nmap_version():
             # Linux may be need root
-            data['ports'] = nmap.scan_top_ports(ip)
-            # data['dns'] = nmap.nmap_dns_brute_script(ip)
-            data['os'] = nmap.nmap_os_detection(ip)
-            # data['sub'] = nmap.nmap_subnet_scan(ip)
+            data['ports'] = nmap.scan_top_ports(domain)
+            # data['dns'] = nmap.nmap_dns_brute_scrdomaint(domain)
+            data['os'] = nmap.nmap_os_detection(domain)
+            # data['sub'] = nmap.nmap_subnet_scan(domain)
             return data
         else:
             return 'nmap error'
     except Exception as e:
-        # TODO:: LOG ERROR
-        print(e)
-        return -1
+        traceback.print_exc()
+        return {}
+print(jnmap('www.tjmylike.com'))

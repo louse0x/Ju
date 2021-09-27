@@ -4,7 +4,11 @@
 :desc: subdomain
 """
 import json
-from urllib.request import urlopen
+import traceback
+import urllib
+from urllib import request
+
+from module.header import header
 
 
 def subdomain(domain):
@@ -15,14 +19,21 @@ def subdomain(domain):
     """
     try:
         # sub_1
-        data = dict()
+        data = {}
+        req = request.Request('https://myssl.com/api/v1/discover_sub_domain?domain={0}'.format(domain),
+                              headers={'User-Agent': header()})
         res = json.loads(
-            urlopen('https://myssl.com/api/v1/discover_sub_domain?domain={0}'.format(domain)).read().decode('utf-8'))
+            request.urlopen(req).read().decode('utf-8'))
         if res['code'] == 0:
             # 正常返回
             data['sub_1'] = res['data']
         return data
+    except urllib.error.HTTPError:
+        return 'Subdomain HTTPError'
     except Exception as e:
-        # TODO:: LOG ERROR
-        print(e)
-        return -1
+        traceback.print_exc()
+        return {}
+
+
+
+print(subdomain('tjhzyl.com'))

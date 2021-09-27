@@ -6,6 +6,7 @@
 
 import re
 import subprocess
+import traceback
 from sys import executable
 
 import wafw00f
@@ -28,11 +29,9 @@ def waf(domain):
                 return result.groups()[1]
             else:
                 # 无waf
-                return "no waf"
+                return {}
         else:
-            # TODO:: LOG ERROR
-            return "waf Error"
+            return "Waf HttpError"
     except Exception as e:
-        # TODO:: LOG ERROR
-        print(e)
-        return -1
+        traceback.print_exc()
+        return {}

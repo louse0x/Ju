@@ -3,9 +3,13 @@
 """
 :desc: ga record
 """
-from urllib.request import urlopen
+import traceback
+import urllib.error
+from urllib import request
 
 from bs4 import BeautifulSoup
+
+from module.header import header
 
 
 def ga(domain):
@@ -15,7 +19,8 @@ def ga(domain):
     :return:
     """
     try:
-        res = urlopen("https://api88.net/api/wa/?name=" + domain).read().decode('utf-8')
+        req = request.Request("https://api88.net/api/wa/?name=" + domain, headers={'User-Agent': header()})
+        res = request.urlopen(req).read().decode('utf-8')
         soup = BeautifulSoup(res, 'html.parser')
         tbody = soup.table.find_all('td')
         ga_list = [child.get_text() for child in tbody][1::2]
@@ -25,8 +30,9 @@ def ga(domain):
         return dict(zip(key_list, ga_list))
     except AttributeError:
         # 无公安网备
-        return '暂无公安网备'
+        return {}
+    except urllib.error.HTTPError:
+        return 'Ga HTTPError'
     except Exception as e:
-        # TODO:: LOG ERROR
-        print(e)
-        return -1
+        traceback.print_exc()
+        return {}
